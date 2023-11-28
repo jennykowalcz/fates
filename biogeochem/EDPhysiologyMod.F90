@@ -784,7 +784,7 @@ contains
                       min(decid_leaf_long_max,sum(prt_params%leaf_long(ipft,:)))
 
                 else !evergreen costs
-                   pft_leaf_lifespan = sum(prt_params%leaf_long(ipft,:))
+                   pft_leaf_lifespan = sum(prt_params%leaf_long(ipft,:)/nscaler_levleaf)
                 end if
 
                 ! Leaf cost at leaf level z (kgC m-2 year-1) accounting for sla profile
