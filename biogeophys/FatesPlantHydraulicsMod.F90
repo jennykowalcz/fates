@@ -4283,7 +4283,8 @@ subroutine CalculateTotalAvailW(ccohort,csite_hydr,bc_in,dtime,totalAvailW)
   ! This subroutine estimates the total available water for transpiration
   ! for an individual plant
   ! ---------------------------------------------------------------------------
-  type(ed_cohort_type) , intent(inout), target  :: ccohort  
+
+  type(fates_cohort_type) , intent(inout), target  :: ccohort  
   type(ed_site_hydr_type), intent(inout),target :: csite_hydr        ! ED site_hydr structure
   type(bc_in_type),intent(in) :: bc_in
   real(r8), intent(in)::dtime !time step (seconds)
