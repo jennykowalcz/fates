@@ -8213,19 +8213,19 @@ end subroutine update_history_hifrq
 
        call this%set_history_var(vname='FATES_ERRH2O_SZPF', units='kg s-1',    &
              long='mean individual water balance error in kg per individual per second', &
-             use_default='inactive', avgflag='A', vtype=site_size_pft_r8,      &
+             use_default='active', avgflag='A', vtype=site_size_pft_r8,      &
              hlms='CLM:ALM', upfreq=4, ivar=ivar,                              &
              initialize=initialize_variables, index = ih_errh2o_scpf)
 
        call this%set_history_var(vname='FATES_TRAN_SZPF', units='kg s-1',      &
              long='mean individual transpiration rate in kg per individual per second', &
-             use_default='inactive', avgflag='A', vtype=site_size_pft_r8,      &
+             use_default='active', avgflag='A', vtype=site_size_pft_r8,      &
              hlms='CLM:ALM', upfreq=4, ivar=ivar,                              &
              initialize=initialize_variables, index = ih_tran_scpf)
 
        call this%set_history_var(vname='FATES_SAPFLOW_SZPF', units='kg m-2 s-1', &
              long='areal sap flow rate dimensioned by size x pft in kg per m2 per second', &
-             use_default='inactive', avgflag='A', vtype=site_size_pft_r8,      &
+             use_default='active', avgflag='A', vtype=site_size_pft_r8,      &
              hlms='CLM:ALM', upfreq=4, ivar=ivar,                              &
              initialize=initialize_variables, index = ih_sapflow_scpf)
 
@@ -8237,63 +8237,63 @@ end subroutine update_history_hifrq
 
        call this%set_history_var(vname='FATES_ITERH1_SZPF', units='count indiv-1 step-1', &
              long='water balance error iteration diagnostic 1', &
-             use_default='inactive', &
+             use_default='active', &
              avgflag='A', vtype=site_size_pft_r8, hlms='CLM:ALM',     &
              upfreq=4, ivar=ivar, initialize=initialize_variables, index = ih_iterh1_scpf )
 
        call this%set_history_var(vname='FATES_ITERH2_SZPF', units='count indiv-1 step-1', &
              long='water balance error iteration diagnostic 2', &
-             use_default='inactive', &
+             use_default='active', &
              avgflag='A', vtype=site_size_pft_r8, hlms='CLM:ALM',     &
              upfreq=4, ivar=ivar, initialize=initialize_variables, index = ih_iterh2_scpf )
 
        call this%set_history_var(vname='FATES_ABSROOT_H2O_SZPF',               &
              units='m3 m-3',                                                   &
              long='absorbing volumetric root water content by size class x pft', &
-             use_default='inactive', avgflag='A', vtype=site_size_pft_r8,      &
+             use_default='active', avgflag='A', vtype=site_size_pft_r8,      &
              hlms='CLM:ALM', upfreq=4, ivar=ivar,                              &
              initialize=initialize_variables, index = ih_ath_scpf)
 
        call this%set_history_var(vname='FATES_TRANSROOT_H2O_SZPF',             &
              units='m3 m-3',                                                   &
              long='transporting volumetric root water content by size class x pft', &
-             use_default='inactive', avgflag='A', vtype=site_size_pft_r8,      &
+             use_default='active', avgflag='A', vtype=site_size_pft_r8,      &
              hlms='CLM:ALM', upfreq=4, ivar=ivar,                              &
              initialize=initialize_variables, index =  ih_tth_scpf)
 
        call this%set_history_var(vname='FATES_STEM_H2O_SZPF', units='m3 m-3',   &
              long='stem volumetric water content by size class x pft',         &
-             use_default='inactive', avgflag='A', vtype=site_size_pft_r8,      &
+             use_default='active', avgflag='A', vtype=site_size_pft_r8,      &
              hlms='CLM:ALM', upfreq=4, ivar=ivar,                              &
              initialize=initialize_variables, index = ih_sth_scpf)
 
        call this%set_history_var(vname='FATES_LEAF_H2O_SZPF', units='m3 m-3',   &
              long='leaf volumetric water content by size class x pft',         &
-             use_default='inactive', avgflag='A', vtype=site_size_pft_r8,      &
+             use_default='active', avgflag='A', vtype=site_size_pft_r8,      &
              hlms='CLM:ALM', upfreq=4, ivar=ivar,                              &
              initialize=initialize_variables, index = ih_lth_scpf)
 
        call this%set_history_var(vname='FATES_ABSROOT_H2OPOT_SZPF', units='Pa',   &
              long='absorbing root water potential by size class x pft',        &
-             use_default='inactive', avgflag='A', vtype=site_size_pft_r8,      &
+             use_default='active', avgflag='A', vtype=site_size_pft_r8,      &
              hlms='CLM:ALM', upfreq=4, ivar=ivar,                              &
              initialize=initialize_variables, index = ih_awp_scpf)
 
        call this%set_history_var(vname='FATES_TRANSROOT_H2OPOT_SZPF',          &
              units='Pa', long='transporting root water potential by size class x pft', &
-             use_default='inactive', avgflag='A', vtype=site_size_pft_r8,      &
+             use_default='active', avgflag='A', vtype=site_size_pft_r8,      &
              hlms='CLM:ALM', upfreq=4, ivar=ivar,                              &
              initialize=initialize_variables, index = ih_twp_scpf)
 
        call this%set_history_var(vname='FATES_STEM_H2OPOT_SZPF', units='Pa',   &
              long='stem water potential by size class x pft',                  &
-             use_default='inactive', avgflag='A', vtype=site_size_pft_r8,      &
+             use_default='active', avgflag='A', vtype=site_size_pft_r8,      &
              hlms='CLM:ALM', upfreq=4, ivar=ivar,                              &
              initialize=initialize_variables, index = ih_swp_scpf)
 
        call this%set_history_var(vname='FATES_LEAF_H2OPOT_SZPF', units='Pa',   &
              long='leaf water potential by size class x pft',                  &
-             use_default='inactive', avgflag='A', vtype=site_size_pft_r8,      &
+             use_default='active', avgflag='A', vtype=site_size_pft_r8,      &
              hlms='CLM:ALM', upfreq=4, ivar=ivar,                              &
              initialize=initialize_variables, index = ih_lwp_scpf)
 
@@ -8323,7 +8323,7 @@ end subroutine update_history_hifrq
 
        call this%set_history_var(vname='FATES_BTRAN_SZPF', units='1',          &
              long='mean individual level BTRAN by size class x pft',           &
-             use_default='inactive', avgflag='A', vtype=site_size_pft_r8,      &
+             use_default='active', avgflag='A', vtype=site_size_pft_r8,      &
              hlms='CLM:ALM', upfreq=4, ivar=ivar,                              &
              initialize=initialize_variables, index = ih_btran_scpf)
 
@@ -8348,19 +8348,19 @@ end subroutine update_history_hifrq
 
        call this%set_history_var(vname='FATES_SOILMATPOT_SL', units='Pa',      &
             long='soil water matric potenial by soil layer',                   &
-            use_default='inactive', avgflag='A', vtype=site_soil_r8,           &
+            use_default='active', avgflag='A', vtype=site_soil_r8,           &
             hlms='CLM:ALM', upfreq=4, ivar=ivar,                               &
             initialize=initialize_variables, index = ih_soilmatpot_sl)
 
        call this%set_history_var(vname='FATES_SOILVWC_SL', units='m3 m-3',     &
             long='soil volumetric water content by soil layer',                &
-            use_default='inactive', avgflag='A', vtype=site_soil_r8,           &
+            use_default='active', avgflag='A', vtype=site_soil_r8,           &
             hlms='CLM:ALM', upfreq=4, ivar=ivar,                               &
             initialize=initialize_variables, index = ih_soilvwc_sl)
 
        call this%set_history_var(vname='FATES_SOILVWCSAT_SL', units='m3 m-3',  &
             long='soil saturated volumetric water content by soil layer',      &
-            use_default='inactive', avgflag='A', vtype=site_soil_r8,           &
+            use_default='active', avgflag='A', vtype=site_soil_r8,           &
             hlms='CLM:ALM', upfreq=4, ivar=ivar,                               &
             initialize=initialize_variables, index = ih_soilvwcsat_sl)
 
@@ -8372,47 +8372,47 @@ end subroutine update_history_hifrq
        call this%set_history_var(vname='FATES_ROOTUPTAKE_SL',                  &
              units='kg m-2 s-1',                                               &
             long='root water uptake rate by soil layer',                       &
-            use_default='inactive', avgflag='A', vtype=site_soil_r8,           &
+            use_default='active', avgflag='A', vtype=site_soil_r8,           &
             hlms='CLM:ALM', upfreq=4, ivar=ivar,                               &
             initialize=initialize_variables, index = ih_rootuptake_sl)
 
        call this%set_history_var(vname='FATES_ROOTUPTAKE0_SZPF',               &
             units='kg m-2 m-1 s-1',                                            &
             long='root water uptake from 0 to to 10 cm depth, by plant size x pft ', &
-            use_default='inactive', avgflag='A', vtype=site_size_pft_r8,       &
+            use_default='active', avgflag='A', vtype=site_size_pft_r8,       &
             hlms='CLM:ALM', upfreq=4, ivar=ivar,                               &
             initialize=initialize_variables, index = ih_rootuptake0_scpf)
 
        call this%set_history_var(vname='FATES_ROOTUPTAKE10_SZPF',              &
             units='kg m-2 m-1 s-1',                                            &
             long='root water uptake from 10 to to 50 cm depth, by plant size x pft ', &
-            use_default='inactive', avgflag='A', vtype=site_size_pft_r8,       &
+            use_default='active', avgflag='A', vtype=site_size_pft_r8,       &
             hlms='CLM:ALM', upfreq=4, ivar=ivar,                               &
             initialize=initialize_variables, index = ih_rootuptake10_scpf)
 
        call this%set_history_var(vname='FATES_ROOTUPTAKE50_SZPF',              &
             units='kg m-2 m-1 s-1',                                            &
             long='root water uptake from 50 to to 100 cm depth, by plant size x pft ', &
-            use_default='inactive', avgflag='A', vtype=site_size_pft_r8,       &
+            use_default='active', avgflag='A', vtype=site_size_pft_r8,       &
             hlms='CLM:ALM', upfreq=4, ivar=ivar,                               &
             initialize=initialize_variables, index = ih_rootuptake50_scpf)
 
        call this%set_history_var(vname='FATES_ROOTUPTAKE100_SZPF',             &
             units='kg m-2 m-1 s-1',                                            &
             long='root water uptake below 100 cm depth, by plant size x pft ', &
-            use_default='inactive', avgflag='A', vtype=site_size_pft_r8,       &
+            use_default='active', avgflag='A', vtype=site_size_pft_r8,       &
             hlms='CLM:ALM', upfreq=4, ivar=ivar,                               &
             initialize=initialize_variables, index = ih_rootuptake100_scpf)
 
        call this%set_history_var(vname='FATES_VEGH2O', units = 'kg m-2',       &
              long='water stored inside vegetation tissues (leaf, stem, roots)', &
-             use_default='inactive', avgflag='A', vtype=site_r8,               &
+             use_default='active', avgflag='A', vtype=site_r8,               &
              hlms='CLM:ALM', upfreq=4, ivar=ivar,                              &
              initialize=initialize_variables, index = ih_h2oveg_si)
 
        call this%set_history_var(vname='FATES_VEGH2O_DEAD', units = 'kg m-2',  &
              long='cumulative water stored in dead biomass due to mortality',  &
-             use_default='inactive', avgflag='A', vtype=site_r8,               &
+             use_default='active', avgflag='A', vtype=site_r8,               &
              hlms='CLM:ALM', upfreq=1, ivar=ivar,                              &
              initialize=initialize_variables, index = ih_h2oveg_dead_si)
 
@@ -8425,14 +8425,14 @@ end subroutine update_history_hifrq
        call this%set_history_var(vname='FATES_VEGH2O_GROWTURN_ERR',            &
              units = 'kg m-2',                                                 &
              long='cumulative net borrowed (+) or lost (-) from water storage due to combined growth & turnover', &
-             use_default='inactive', avgflag='A', vtype=site_r8,               &
+             use_default='active', avgflag='A', vtype=site_r8,               &
              hlms='CLM:ALM', upfreq=1, ivar=ivar,                              &
              initialize=initialize_variables, index = ih_h2oveg_growturn_err_si)
 
        call this%set_history_var(vname='FATES_VEGH2O_HYDRO_ERR',               &
              units = 'kg m-2',                                                 &
              long='cumulative net borrowed (+) from plant_stored_h2o due to plant hydrodynamics', &
-             use_default='inactive', avgflag='A', vtype=site_r8,               &
+             use_default='active', avgflag='A', vtype=site_r8,               &
              hlms='CLM:ALM', upfreq=4, ivar=ivar,                              &
              initialize=initialize_variables, index = ih_h2oveg_hydro_err_si)
     end if hydro_active_if
