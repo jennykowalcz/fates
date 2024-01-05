@@ -146,12 +146,12 @@ contains
           min_fmc_ag = minval(cohort_in%co_hydr%ftc_ag(:))
           min_fmc_tr = cohort_in%co_hydr%ftc_troot
           min_fmc_ar = minval(cohort_in%co_hydr%ftc_aroot(:))
-          min_fmc = min(min_fmc_ag, min_fmc_tr)
-          min_fmc = min(min_fmc, min_fmc_ar)
+          min_fmc = min(min_fmc_ag, min_fmc_tr, min_fmc_ar)
           flc = 1.0_r8-min_fmc
           if(flc >= hf_flc_threshold .and. hf_flc_threshold < 1.0_r8 )then 
-             hmort = (flc-hf_flc_threshold)/(1.0_r8-hf_flc_threshold) * &
-                  EDPftvarcon_inst%mort_scalar_hydrfailure(cohort_in%pft)
+!             hmort = (flc-hf_flc_threshold)/(1.0_r8-hf_flc_threshold) * &
+!                  EDPftvarcon_inst%mort_scalar_hydrfailure(cohort_in%pft)
+             hmort=EDPftvarcon_inst%mort_scalar_hydrfailure(cohort_in%pft) * exp((flc-1.0_r8)/hf_flc_threshold)
           else
              hmort = 0.0_r8
           endif
