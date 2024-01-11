@@ -124,6 +124,7 @@ Module EDCohortDynamicsMod
   use FatesConstantsMod,      only : i_term_mort_type_cstarv
   use FatesConstantsMod,      only : i_term_mort_type_canlev
   use FatesConstantsMod,      only : i_term_mort_type_numdens
+  use FatesConstantsMod,      only : i_term_mort_type_hydro
 
   use shr_infnan_mod,         only : nan => shr_infnan_nan, assignment(=)  
   use shr_log_mod,            only : errMsg => shr_log_errMsg
@@ -383,6 +384,12 @@ end subroutine create_cohort
     real(r8) :: fnrt_c    ! fineroot carbon [kg]
     real(r8) :: repro_c   ! reproductive carbon [kg]
     real(r8) :: struct_c  ! structural carbon [kg]
+
+    real(r8) :: min_fmc_ag         ! minimum fraction of maximum conductivity for aboveground
+    real(r8) :: min_fmc_tr         ! minimum fraction of maximum conductivity for transporting root
+    real(r8) :: min_fmc_ar         ! minimum fraction of maximum conductivity for absorbing root
+    real(r8) :: max_ftc            ! maximum fraction of maximum conductivity for whole plant
+
     integer :: terminate  ! do we terminate (itrue) or not (ifalse)
     integer :: istat      ! return status code
     character(len=255) :: smsg
@@ -455,7 +462,21 @@ end subroutine create_cohort
                     struct_c,sapw_c,leaf_c,fnrt_c,store_c,currentCohort%pft,call_index
             endif
 
+         endif
+
+         ! Too dry
+         if (hlm_use_planthydro .eq. itrue) then
+           min_fmc_ag = minval(currentCohort%co_hydr%ftc_ag(:))
+           min_fmc_tr = currentCohort%co_hydr%ftc_troot
+           min_fmc_ar = minval(currentCohort%co_hydr%ftc_aroot(:))
+           max_ftc=max(min_fmc_ag,min_fmc_tr,min_fmc_ar)
+           if (max_ftc < 0.01_r8) then
+              terminate = itrue
+              termination_type = i_term_mort_type_hydro
+           endif
         endif
+
+         
       endif    !  if (.not.currentCohort%isnew .and. level == 2) then
 
       if (terminate == itrue) then
