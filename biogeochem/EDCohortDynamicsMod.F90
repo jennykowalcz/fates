@@ -470,7 +470,7 @@ end subroutine create_cohort
            min_fmc_tr = currentCohort%co_hydr%ftc_troot
            min_fmc_ar = minval(currentCohort%co_hydr%ftc_aroot(:))
            max_ftc=max(min_fmc_ag,min_fmc_tr,min_fmc_ar)
-           if (max_ftc < 0.01_r8) then
+           if (max_ftc < 0.1_r8) then
               terminate = itrue
               termination_type = i_term_mort_type_hydro
            endif
