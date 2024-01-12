@@ -981,7 +981,7 @@ contains
     ! Lets also avoid super-low targets that have very low trimming functions
 
     call bleaf(ccohort%dbh,ccohort%pft,ccohort%crowndamage, &
-         max(ccohort%canopy_trim,min_trim),ccohort%efleaf_coh, leaf_c_target)
+         max(ccohort%canopy_trim,min_trim),max(ccohort%efleaf_coh,min_trim), leaf_c_target)
 
     if( (ccohort%status_coh == leaves_on) .or. ccohort_hydr%is_newly_recruited ) then
        ccohort_hydr%v_ag(1:n_hypool_leaf) = max(leaf_c,min_leaf_frac*leaf_c_target) * &
