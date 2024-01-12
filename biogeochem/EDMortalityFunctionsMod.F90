@@ -149,9 +149,12 @@ contains
           min_fmc = min(min_fmc_ag, min_fmc_tr, min_fmc_ar)
           flc = 1.0_r8-min_fmc
           if(flc >= hf_flc_threshold .and. hf_flc_threshold < 1.0_r8 )then 
-!             hmort = (flc-hf_flc_threshold)/(1.0_r8-hf_flc_threshold) * &
-!                  EDPftvarcon_inst%mort_scalar_hydrfailure(cohort_in%pft)
-             hmort=EDPftvarcon_inst%mort_scalar_hydrfailure(cohort_in%pft) * exp((flc-1.0_r8)/hf_flc_threshold)
+!! Linear
+     !             hmort = (flc-hf_flc_threshold)/(1.0_r8-hf_flc_threshold) * &
+             !                  EDPftvarcon_inst%mort_scalar_hydrfailure(cohort_in%pft)
+             !! Exponential:
+!             hmort=EDPftvarcon_inst%mort_scalar_hydrfailure(cohort_in%pft) * exp((flc-1.0_r8)/hf_flc_threshold)
+             hmort=min(0.1_r8**(min_fmc-0.5_r8)-1.0_r8,1.0_r8)
           else
              hmort = 0.0_r8
           endif
