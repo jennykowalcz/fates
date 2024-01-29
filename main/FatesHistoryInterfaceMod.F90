@@ -5054,7 +5054,7 @@ end subroutine update_history_hifrq
                vwc     = bc_in(s)%h2o_liqvol_sl(j_bc)
                psi     = site_hydr%wrf_soil(j)%p%psi_from_th(vwc) ! MLO: Any reason for not using smp_sl?
                ! cap capillary pressure
-               ! psi = max(-1e5_r8,psi) Removing cap as that is inconstistent
+               psi = max(-1e5_r8,psi) !Removing cap as that is inconstistent
                !                        with model internals and physics. Should
                !                        implement caps inside the functions
                !                        if desired. (RGK 12-2021)
@@ -5084,7 +5084,7 @@ end subroutine update_history_hifrq
          
          hio_rootwgt_soilvwc_si(io_si)    = mean_soil_vwc/areaweight
          hio_rootwgt_soilvwcsat_si(io_si) = mean_soil_vwcsat/areaweight
-         hio_rootwgt_soilmatpot_si(io_si) = mean_soil_matpot/areaweight  * pa_per_mpa
+         hio_rootwgt_soilmatpot_si(io_si) = (mean_soil_matpot/areaweight) * pa_per_mpa
          
 
          ! Normalization counters
