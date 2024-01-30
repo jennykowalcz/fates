@@ -3845,6 +3845,7 @@ subroutine ImTaylorSolve1D(slat, slon,recruitflag,csite_hydr,cohort,cohort_hydr,
      ! ------------------------------------------------------------
      if ( abs(wb_err_layer) > max_wb_err ) then
 
+        write(fates_log(),*)'EDPlantHydraulics water balance error is ', wb_err_layer
         write(fates_log(),*)'EDPlantHydraulics water balance error exceeds threshold of = ', max_wb_err
         write(fates_log(),*)'transpiration demand: ', dt_step*q_top_eff,' kg/step/plant'
 
