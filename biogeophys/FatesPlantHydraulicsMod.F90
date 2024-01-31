@@ -184,7 +184,7 @@ module FatesPlantHydraulicsMod
   ! is left between soil moisture and saturation [m3/m3]
   ! (if we are going to help purge super-saturation)
 
-  logical,parameter :: debug = .false.          ! flag to report warning in hydro
+  logical,parameter :: debug = .true.          ! flag to report warning in hydro
 
 
   character(len=*), parameter, private :: sourcefile = &
@@ -3335,7 +3335,7 @@ subroutine ImTaylorSolve1D(slat, slon,recruitflag,csite_hydr,cohort,cohort_hydr,
 
   integer, parameter  :: imult    = 3                ! With each iteration, increase the number of substeps
   ! by this much
-  integer, parameter  :: max_iter = 30               ! Maximum number of iterations with which we reduce timestep
+  integer, parameter  :: max_iter = 60               ! Maximum number of iterations with which we reduce timestep
 
   real(r8), parameter :: max_wb_err      = 2.e-5_r8  ! threshold for water balance error (stop model)   [kg h2o]
 
