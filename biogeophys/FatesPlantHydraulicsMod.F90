@@ -191,7 +191,7 @@ module FatesPlantHydraulicsMod
        __FILE__
 
 
-  ! These index flags specify which pressure-volumen and pressure
+  ! These index flags specify which pressure-volume and pressure
   ! conductivity relationship are available.
   ! For plants: Users can option between useing tfs and van_genuchten
   ! by specifying their choice in the parameter file,
@@ -205,14 +205,18 @@ module FatesPlantHydraulicsMod
   ! interface routines to transfer over parameters.  Right now we just hard-code
   ! the use of campbell_type for the soil (see a few lines below).
 
+! In default paramter file hydr_htftype_node = 1
+  
   integer, public, parameter :: van_genuchten_type      = 2
   integer, public, parameter :: campbell_type           = 3
   integer, public, parameter :: smooth1_campbell_type   = 31
   integer, public, parameter :: smooth2_campbell_type   = 32
   integer, public, parameter :: tfs_type                = 1
 
-  integer, parameter :: soil_wrf_type  = campbell_type
-  integer, parameter :: soil_wkf_type  = campbell_type
+!  integer, parameter :: soil_wrf_type  = campbell_type
+!  integer, parameter :: soil_wkf_type  = campbell_type
+  integer, parameter :: soil_wrf_type  = smooth1_campbell_type
+  integer, parameter :: soil_wkf_type  = smooth1_campbell_type
 
 
   ! Define the global object that holds the water retention functions
