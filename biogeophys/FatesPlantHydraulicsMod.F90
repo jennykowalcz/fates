@@ -217,8 +217,8 @@ module FatesPlantHydraulicsMod
 !  integer, parameter :: soil_wkf_type  = campbell_type
 !  integer, parameter :: soil_wrf_type  = smooth1_campbell_type
 !  integer, parameter :: soil_wkf_type  = smooth1_campbell_type
-  integer, parameter :: soil_wrf_type  = van_genuchten_type_type
-  integer, parameter :: soil_wkf_type  = van_genuchten_type_type
+  integer, parameter :: soil_wrf_type  = van_genuchten_type
+  integer, parameter :: soil_wkf_type  = van_genuchten_type
 
 
   ! Define the global object that holds the water retention functions
