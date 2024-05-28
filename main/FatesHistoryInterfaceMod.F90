@@ -2435,8 +2435,6 @@ contains
       ! ---------------------------------------------------------------------------------
       ! Loop through the FATES scale hierarchy and fill the history IO arrays
       ! ---------------------------------------------------------------------------------
-
-      call this%flush_hvars(nc,upfreq_in=group_dyna_simple)
       
       siteloop: do s = 1,nsites
 
@@ -3276,8 +3274,6 @@ contains
           ! ---------------------------------------------------------------------------------
           ! Loop through the FATES scale hierarchy and fill the history IO arrays
           ! ---------------------------------------------------------------------------------
-
-          call this%flush_hvars(nc,upfreq_in=group_dyna_complx)
           
           siteloop: do s = 1,nsites
 
@@ -4893,8 +4889,6 @@ contains
          hio_tveg                     => this%hvars(ih_tveg_si)%r81d)
 
 
-      call this%flush_hvars(nc,upfreq_in=group_hifr_simple)
-      
       dt_tstep_inv = 1.0_r8/dt_tstep
 
       allocate(age_area_rad(size(ED_val_history_ageclass_bin_edges,1)+1))
@@ -5178,8 +5172,6 @@ contains
          hio_laisha_si_can                    => this%hvars(ih_laisha_si_can)%r82d )
 
 
-      call this%flush_hvars(nc,upfreq_in=group_hifr_complx)
-      
       dt_tstep_inv = 1.0_r8/dt_tstep
 
       do_sites: do s = 1,nsites
@@ -5609,8 +5601,6 @@ contains
 
     if_hifrq0: if(hlm_hist_level_hifrq>0) then
 
-       call this%flush_hvars(nc,upfreq_in=group_hydr_simple)
-       
        associate(   hio_h2oveg_hydro_err_si   => this%hvars(ih_h2oveg_hydro_err_si)%r81d, &
             hio_rootwgt_soilvwc_si    => this%hvars(ih_rootwgt_soilvwc_si)%r81d, &
             hio_rootwgt_soilvwcsat_si => this%hvars(ih_rootwgt_soilvwcsat_si)%r81d, &
@@ -5715,8 +5705,6 @@ contains
             hio_rootuptake50_scpf     => this%hvars(ih_rootuptake50_scpf)%r82d, &
             hio_rootuptake100_scpf    => this%hvars(ih_rootuptake100_scpf)%r82d )
 
-         call this%flush_hvars(nc,upfreq_in=group_hydr_complx)
-         
          do s = 1,nsites
             
             site_hydr => sites(s)%si_hydr
