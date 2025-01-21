@@ -3272,7 +3272,6 @@ contains
              hio_nplant_understory_si_scag        => this%hvars(ih_nplant_understory_si_scag)%r82d, &
              hio_disturbance_rate_si_lulu         => this%hvars(ih_disturbance_rate_si_lulu)%r82d, &
              hio_cstarvmortality_continuous_carbonflux_si_pft  => this%hvars(ih_cstarvmortality_continuous_carbonflux_si_pft)%r82d, &
-             hio_transition_matrix_si_lulu      => this%hvars(ih_transition_matrix_si_lulu)%r82d, &
              hio_sapwood_area_scpf              => this%hvars(ih_sapwood_area_scpf)%r82d)
 
 
