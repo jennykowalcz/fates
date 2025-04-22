@@ -382,6 +382,7 @@ module FatesHistoryInterfaceMod
 
   ! Indices to site by patch age by pft variables
   integer :: ih_biomass_si_agepft
+  integer :: ih_ba_si_agepft
   integer :: ih_npp_si_agepft
   integer :: ih_scorch_height_si_agepft
 
@@ -3221,6 +3222,7 @@ contains
            hio_nplant_si_scagpft                => this%hvars(ih_nplant_si_scagpft)%r82d, &
            hio_npp_si_agepft                    => this%hvars(ih_npp_si_agepft)%r82d, &
            hio_biomass_si_agepft                => this%hvars(ih_biomass_si_agepft)%r82d, &
+           hio_ba_si_agepft                => this%hvars(ih_ba_si_agepft)%r82d, &
            hio_scorch_height_si_agepft          => this%hvars(ih_scorch_height_si_agepft)%r82d, &
            hio_yesterdaycanopylevel_canopy_si_scls     => this%hvars(ih_yesterdaycanopylevel_canopy_si_scls)%r82d, &
            hio_yesterdaycanopylevel_understory_si_scls => this%hvars(ih_yesterdaycanopylevel_understory_si_scls)%r82d, &
@@ -3894,6 +3896,9 @@ contains
 
                         hio_biomass_si_agepft(io_si,iagepft) = hio_biomass_si_agepft(io_si,iagepft) + &
                              total_m * ccohort%n * AREA_INV
+
+                        hio_ba_si_agepft(io_si,iagepft) = hio_ba_si_agepft(io_si,iagepft) + &
+                             0.25_r8*pi_const*((ccohort%dbh/100.0_r8)**2.0_r8)*ccohort%n / m2_per_ha
 
                         ! update SCPF/SCLS- and canopy/subcanopy- partitioned quantities
                         canlayer: if (ccohort%canopy_layer .eq. 1) then
@@ -7391,6 +7396,12 @@ contains
                use_default='inactive', avgflag='A', vtype=site_agepft_r8,           &
                hlms='CLM:ALM', upfreq=group_dyna_complx, ivar=ivar,                                 &
                initialize=initialize_variables, index = ih_biomass_si_agepft)
+
+          call this%set_history_var(vname='FATES_BA_APPF',units = 'm2 m-2',        &
+               long='basal area per PFT in each age bin in m2 per m2',          &
+               use_default='active', avgflag='A', vtype=site_agepft_r8,           &
+               hlms='CLM:ALM', upfreq=group_dyna_complx, ivar=ivar,                                 &
+               initialize=initialize_variables, index = ih_ba_si_agepft)
 
           call this%set_history_var(vname='FATES_SCORCH_HEIGHT_APPF',units = 'm',    &
                long='SPITFIRE flame Scorch Height (calculated per PFT in each patch age bin)', &
