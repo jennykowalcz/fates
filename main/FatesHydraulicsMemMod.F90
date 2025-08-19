@@ -32,7 +32,7 @@ module FatesHydraulicsMemMod
    ! number of distinct types of plant porous media (leaf, stem, troot, aroot)
    integer, parameter, public                  :: n_porous_media = 5
    integer, parameter, public                  :: n_plant_media  = 4
-   integer, parameter, public                  :: n_hypool_leaf  = 1
+   integer, parameter, public                  :: n_hypool_leaf  = 2
    integer, parameter, public                  :: n_hypool_stem  = 1
    integer, parameter, public                  :: n_hypool_troot = 1 ! CANNOT BE CHANGED
    integer, parameter, public                  :: n_hypool_aroot = 1 ! THIS IS "PER-SOIL-LAYER"
