@@ -1203,6 +1203,13 @@ contains
        if( solve_iter == max_iters) then
           write (fates_log(),*) 'Ci bisection during photosynthesis failed'
           write (fates_log(),*) 'try increasing tolerance or widening the starting points'
+          write(fates_log(),*) "ci_h=",ci_h,"fval_h=",fval_h,"ci_l=",ci_l,"fval_l=",fval_l
+          write(fates_log(),*) "ft= ",ft,"is c3psn:",lb_params%c3psn(ft) == c3_path_index
+          write(fates_log(),*) "vcmax=",vcmax,"jmax=",jmax,"kp=",kp
+          write(fates_log(),*) "co2_cpoint=",co2_cpoint,"mm_kco2=",mm_kco2,"mm_ko2=",mm_ko2
+          write(fates_log(),*) "can_co2_ppress=",can_co2_ppress,"can_o2_ppress=",can_o2_ppress,"can_press=",can_press
+          write(fates_log(),*) "can_vpress=",can_vpress,"lmr=",lmr,"par_abs=",par_abs,"gb=",gb
+          write(fates_log(),*) "veg_tempk=",veg_tempk,"gs0=",gs0,"gs1=",gs1,"gs2=",gs2,"ci_tol=",ci_tol
           call endrun(msg=errMsg(sourcefile, __LINE__))
        end if
        
