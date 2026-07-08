@@ -71,7 +71,6 @@ module EDPatchDynamicsMod
   use EDLoggingMortalityMod, only : get_harvestable_carbon
   use EDLoggingMortalityMod, only : get_harvest_debt
   use FatesLandUseChangeMod, only : GetInitLanduseHarvestRate
-  use EDParamsMod          , only : fates_mortality_disturbance_fraction
   use FatesAllometryMod    , only : carea_allom
   use FatesAllometryMod    , only : set_root_fraction
   use FatesConstantsMod    , only : g_per_kg
@@ -361,7 +360,7 @@ contains
              ! Treefall Disturbance Rate.  Only count this for trees, not grasses
              if ( .not. ExemptTreefallDist(currentCohort) ) then
                 currentPatch%disturbance_rates(dtype_ifall) = currentPatch%disturbance_rates(dtype_ifall) + &
-                     fates_mortality_disturbance_fraction * &
+                     EDPftvarcon_inst%mortality_disturbance_fraction(currentCohort%pft)) * &
                      min(1.0_r8,currentCohort%dmort)*hlm_freq_day*currentCohort%c_area/currentPatch%area
              end if
 
@@ -502,7 +501,7 @@ contains
     !
     ! !USES:
 
-    use EDParamsMod          , only : ED_val_understorey_death, logging_coll_under_frac
+    use EDParamsMod          , only : ED_val_understory_death, logging_coll_under_frac
     use EDCohortDynamicsMod  , only : terminate_cohorts
     use FatesConstantsMod    , only : rsnbl_math_prec
     use FatesLandUseChangeMod, only : GetLanduseChangeRules
@@ -851,8 +850,7 @@ contains
                                      ! because this is the part of the original patch where no trees have actually fallen
                                      ! The diagnostic cmort,bmort,hmort, and frmort  rates have already been saved
 
-                                     currentCohort%n = currentCohort%n * (1.0_r8 - fates_mortality_disturbance_fraction * &
-                                          min(1.0_r8,currentCohort%dmort * hlm_freq_day))
+                                     currentCohort%n = currentCohort%n * (1.0_r8 - EDPftvarcon_inst%mortality_disturbance_fraction(currentCohort%pft)) * min(1.0_r8,currentCohort%dmort * hlm_freq_day))
 
                                      nc%n = 0.0_r8      ! kill all of the trees who caused the disturbance.
 
@@ -892,17 +890,17 @@ contains
 
                                         currentSite%imort_rate(currentCohort%size_class, currentCohort%pft) = &
                                              currentSite%imort_rate(currentCohort%size_class, currentCohort%pft) + &
-                                             nc%n * ED_val_understorey_death / hlm_freq_day
+                                             nc%n * ED_val_understory_death / hlm_freq_day
 
 
                                         currentSite%imort_carbonflux(currentCohort%pft) = &
                                              currentSite%imort_carbonflux(currentCohort%pft) + &
-                                             (nc%n * ED_val_understorey_death / hlm_freq_day ) * &
+                                             (nc%n * ED_val_understory_death / hlm_freq_day ) * &
                                              total_c * g_per_kg * days_per_sec * years_per_day * ha_per_m2
 
                                         currentSite%imort_abg_flux(currentCohort%size_class, currentCohort%pft) = &
                                              currentSite%imort_abg_flux(currentCohort%size_class, currentCohort%pft) + &
-                                             (nc%n * ED_val_understorey_death / hlm_freq_day ) * &
+                                             (nc%n * ED_val_understory_death / hlm_freq_day ) * &
                                              ( (sapw_c + struct_c + store_c) * prt_params%allom_agb_frac(currentCohort%pft) + &
                                              leaf_c ) * &
                                              g_per_kg * days_per_sec * years_per_day * ha_per_m2
@@ -911,7 +909,7 @@ contains
                                         ! Step 2:  Apply survivor ship function based on the understory death fraction
                                         ! remaining of understory plants of those that are knocked over
                                         ! by the overstorey trees dying...
-                                        nc%n = nc%n * (1.0_r8 - ED_val_understorey_death)
+                                        nc%n = nc%n * (1.0_r8 - ED_val_understory_death)
 
                                         ! since the donor patch split and sent a fraction of its members
                                         ! to the new patch and a fraction to be preserved in itself,
@@ -2416,7 +2414,7 @@ contains
     ! area of the patch once disturbance is completed.
     !
     ! !USES:
-    use EDParamsMod,  only : ED_val_understorey_death
+    use EDParamsMod,  only : ED_val_understory_death
     use SFParamsMod,  only : SF_val_cwd_frac
     !
     ! !ARGUMENTS:
@@ -2511,14 +2509,14 @@ contains
              ! generating mortality rate.
              
              num_dead = currentCohort%n * min(1.0_r8,currentCohort%dmort * &
-                   hlm_freq_day * fates_mortality_disturbance_fraction)
+                   hlm_freq_day * EDPftvarcon_inst%mortality_disturbance_fraction(currentCohort%pft)))
              
           elseif(prt_params%woody(pft) == itrue) then
              
              ! Understorey trees. The total dead is based on their survivorship
              ! function, and the total area of disturbance.
              
-             num_dead = ED_val_understorey_death * currentCohort%n * &
+             num_dead = ED_val_understory_death * currentCohort%n * &
                    (patch_site_areadis/currentPatch%area) 
 
           else
