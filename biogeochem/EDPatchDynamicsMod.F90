@@ -2,26 +2,17 @@ module EDPatchDynamicsMod
   ! ============================================================================
   ! Controls formation, creation, fusing and termination of patch level processes. 
   ! ============================================================================
-  use FatesGlobals         , only : fates_log
-  use FatesGlobals         , only : FatesWarn,N2S,A2S
-  use FatesInterfaceTypesMod, only : hlm_freq_day
-  use FatesInterfaceTypesMod, only : hlm_current_tod
-  use EDPftvarcon          , only : EDPftvarcon_inst
-  use EDPftvarcon          , only : GetDecompyFrac
+  use FatesGlobals         , only : fates_log, FatesWarn,N2S,A2S
+  use FatesInterfaceTypesMod, only : hlm_freq_day, hlm_current_tod
+  use EDPftvarcon          , only : EDPftvarcon_inst, GetDecompyFrac
   use PRTParametersMod      , only : prt_params
   use EDCohortDynamicsMod  , only : fuse_cohorts, sort_cohorts, insert_cohort
   use EDTypesMod           , only : area_site => area
   use ChecksBalancesMod    , only : PatchMassStock
-  use FatesLitterMod       , only : ncwd
-  use FatesLitterMod       , only : ndcmpy
-  use FatesLitterMod       , only : litter_type
-  use FatesConstantsMod    , only : n_dbh_bins 
-  use FatesLitterMod       , only : adjust_SF_CWD_frac
-  use EDTypesMod           , only : homogenize_seed_pfts
-  use EDTypesMod           , only : area
-  use FatesConstantsMod    , only : patchfusion_dbhbin_loweredges
-  use EDtypesMod           , only : force_patchfuse_min_biomass
-  use EDTypesMod           , only : ed_site_type
+  use FatesLitterMod       , only : ncwd, ndcmpy, litter_type, adjust_SF_CWD_frac
+  use FatesConstantsMod    , only : n_dbh_bins, patchfusion_dbhbin_loweredges 
+  use EDTypesMod           , only : homogenize_seed_pfts, area
+  use EDtypesMod           , only : force_patchfuse_min_biomass, ed_site_type
   use FatesPatchMod,         only : fates_patch_type
   use FatesCohortMod       , only : fates_cohort_type
   use EDTypesMod           , only : site_massbal_type
@@ -31,11 +22,7 @@ module EDPatchDynamicsMod
   use EDTypesMod           , only : min_patch_area_forced
   use EDParamsMod          , only : regeneration_model
   use FatesInterfaceTypesMod, only : numpft
-  use FatesConstantsMod     , only : dtype_ifall
-  use FatesConstantsMod     , only : dtype_ilog
-  use FatesConstantsMod     , only : dtype_ifire
-  use FatesConstantsMod     , only : dtype_ilandusechange
-  use FatesConstantsMod    , only : ican_upper
+  use FatesConstantsMod     , only : dtype_ifall, dtype_ilog, dtype_ifire, dtype_ilandusechange, ican_upper
   use PRTGenericMod        , only : num_elements
   use PRTGenericMod        , only : element_list
   use FatesFuelClassesMod  , only : fuel_classes
@@ -90,20 +77,12 @@ module EDPatchDynamicsMod
   use EDCohortDynamicsMod  , only : InitPRTObject
   use ChecksBalancesMod,      only : SiteMassStock
   use PRTGenericMod,          only : carbon12_element
-  use PRTGenericMod,          only : leaf_organ
-  use PRTGenericMod,          only : fnrt_organ
-  use PRTGenericMod,          only : sapw_organ
-  use PRTGenericMod,          only : store_organ
-  use PRTGenericMod,          only : repro_organ
-  use PRTGenericMod,          only : struct_organ
+  use PRTGenericMod,          only : leaf_organ, fnrt_organ, sapw_organ, store_organ, repro_organ, struct_organ
   use PRTLossFluxesMod,       only : PRTBurnLosses
   use FatesInterfaceTypesMod,      only : hlm_parteh_mode
-  use PRTGenericMod,          only : prt_carbon_allom_hyp   
-  use PRTGenericMod,          only : prt_cnp_flex_allom_hyp
+  use PRTGenericMod,          only : prt_carbon_allom_hyp, prt_cnp_flex_allom_hyp
   use SFParamsMod,            only : SF_VAL_CWD_FRAC
-  use EDParamsMod,            only : logging_event_code
-  use EDParamsMod,            only : logging_export_frac
-  use EDParamsMod,            only : maxpatches_by_landuse
+  use EDParamsMod,            only : logging_event_code, logging_export_frac, maxpatches_by_landuse
   use FatesRunningMeanMod,    only : ema_sdlng_mdd
   use FatesRunningMeanMod,    only : ema_sdlng_emerg_h2o, ema_sdlng_mort_par, ema_sdlng2sap_par
   use FatesRunningMeanMod,    only : ema_24hr, fixed_24hr, ema_lpa, ema_longterm
@@ -360,7 +339,7 @@ contains
              ! Treefall Disturbance Rate.  Only count this for trees, not grasses
              if ( .not. ExemptTreefallDist(currentCohort) ) then
                 currentPatch%disturbance_rates(dtype_ifall) = currentPatch%disturbance_rates(dtype_ifall) + &
-                     EDPftvarcon_inst%mortality_disturbance_fraction(currentCohort%pft)) * &
+                     EDPftvarcon_inst%mortality_disturbance_fraction(currentCohort%pft) * &
                      min(1.0_r8,currentCohort%dmort)*hlm_freq_day*currentCohort%c_area/currentPatch%area
              end if
 
@@ -850,7 +829,7 @@ contains
                                      ! because this is the part of the original patch where no trees have actually fallen
                                      ! The diagnostic cmort,bmort,hmort, and frmort  rates have already been saved
 
-                                     currentCohort%n = currentCohort%n * (1.0_r8 - EDPftvarcon_inst%mortality_disturbance_fraction(currentCohort%pft)) * min(1.0_r8,currentCohort%dmort * hlm_freq_day))
+                                     currentCohort%n = currentCohort%n * (1.0_r8 - EDPftvarcon_inst%mortality_disturbance_fraction(currentCohort%pft) * min(1.0_r8,currentCohort%dmort * hlm_freq_day))
 
                                      nc%n = 0.0_r8      ! kill all of the trees who caused the disturbance.
 
@@ -2509,7 +2488,7 @@ contains
              ! generating mortality rate.
              
              num_dead = currentCohort%n * min(1.0_r8,currentCohort%dmort * &
-                   hlm_freq_day * EDPftvarcon_inst%mortality_disturbance_fraction(currentCohort%pft)))
+                   hlm_freq_day * EDPftvarcon_inst%mortality_disturbance_fraction(currentCohort%pft))
              
           elseif(prt_params%woody(pft) == itrue) then
              
