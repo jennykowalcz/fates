@@ -99,6 +99,7 @@ module EDPftvarcon
      real(r8), allocatable :: maintresp_leaf_vert_scaler_coeff2(:) ! leaf maintenance respiration decrease through the canopy param 2
                                                                    ! only with Atkin et al. 2017 respiraiton model 
      real(r8), allocatable :: bmort(:)
+     real(r8), allocatable :: mortality_disturbance_fraction(:) ! the fraction of canopy mortality that results in disturbance
      real(r8), allocatable :: mort_ip_size_senescence(:) ! inflection point of dbh dependent senescence
      real(r8), allocatable :: mort_r_size_senescence(:)  ! rate of change in mortality with dbh
      real(r8), allocatable :: mort_ip_age_senescence(:)  ! inflection point of age dependent senescence
@@ -482,8 +483,6 @@ contains
     call fates_params%RegisterParameter(name=name, dimension_shape=dimension_shape_1d, &
         dimension_names=dim_names, lower_bounds=dim_lower_bound)
 
-
-    
     name = 'fates_maintresp_leaf_vert_scaler_coeff1'
     call fates_params%RegisterParameter(name=name, dimension_shape=dimension_shape_1d, &
         dimension_names=dim_names, lower_bounds=dim_lower_bound)
@@ -565,6 +564,10 @@ contains
          dimension_names=dim_names, lower_bounds=dim_lower_bound)
 
     name = 'fates_mort_bmort'
+    call fates_params%RegisterParameter(name=name, dimension_shape=dimension_shape_1d, &
+         dimension_names=dim_names, lower_bounds=dim_lower_bound)
+    
+    name = 'fates_mort_disturb_frac'
     call fates_params%RegisterParameter(name=name, dimension_shape=dimension_shape_1d, &
          dimension_names=dim_names, lower_bounds=dim_lower_bound)
 
@@ -1033,6 +1036,10 @@ contains
     call fates_params%RetrieveParameterAllocate(name=name, &
          data=this%bmort)
 
+    name = 'fates_mort_disturb_frac'
+    call fates_params%RetrieveParameterAllocate(name=name, &
+         data=this%mortality_disturbance_fraction)
+
     name = 'fates_mort_scalar_coldstress'
     call fates_params%RetrieveParameterAllocate(name=name, &
          data=this%mort_scalar_coldstress)
@@ -1048,7 +1055,6 @@ contains
     name = 'fates_mort_upthresh_cstarvation'
     call fates_params%RetrieveParameterAllocate(name=name, &
          data=this%mort_upthresh_cstarvation)
-
 
     name = 'fates_mort_ip_size_senescence'
     call fates_params%RetrieveParameterAllocate(name=name, &
@@ -1077,7 +1083,6 @@ contains
     name = 'fates_mort_upthresh_cstarvation'
     call fates_params%RetrieveParameterAllocate(name=name, &
          data=this%mort_upthresh_cstarvation)
-
 
     name = 'fates_mort_hf_sm_threshold'
     call fates_params%RetrieveParameterAllocate(name=name, &
@@ -1732,6 +1737,7 @@ contains
         write(fates_log(),fmt0) 'smpso = ',EDPftvarcon_inst%smpso
         write(fates_log(),fmt0) 'smpsc = ',EDPftvarcon_inst%smpsc
         write(fates_log(),fmt0) 'bmort = ',EDPftvarcon_inst%bmort
+        write(fates_log(),fmt0) 'mortality_disturbance_fraction = ',EDPftvarcon_inst%mortality_disturbance_fraction
         write(fates_log(),fmt0) 'mort_ip_size_senescence = ', EDPftvarcon_inst%mort_ip_size_senescence
         write(fates_log(),fmt0) 'mort_r_size_senescence = ', EDPftvarcon_inst%mort_r_size_senescence
         write(fates_log(),fmt0) 'mort_ip_age_senescence = ', EDPftvarcon_inst%mort_ip_age_senescence
