@@ -7,7 +7,6 @@ module EDMortalityFunctionsMod
    use FatesConstantsMod     , only : r8 => fates_r8
    use FatesGlobals          , only : fates_log
    use FatesGlobals          , only : endrun => fates_endrun
-   use FatesGlobals          , only : fates_log
    use EDPftvarcon           , only : EDPftvarcon_inst
    use FatesCohortMod        , only : fates_cohort_type
    use EDTypesMod            , only : ed_site_type
@@ -28,7 +27,6 @@ module EDMortalityFunctionsMod
    use FatesInterfaceTypesMod     , only : hlm_use_planthydro
    use FatesInterfaceTypesMod     , only : hlm_use_tree_damage
    use EDLoggingMortalityMod , only : LoggingMortality_frac
-   use EDParamsMod           , only : fates_mortality_disturbance_fraction
    use FatesConstantsMod     , only : n_landuse_cats
    use PRTGenericMod,          only : carbon12_element
    use PRTGenericMod,          only : store_organ
@@ -289,8 +287,6 @@ contains
     ! rates.  These rates are not disturbance-inducing rates (that is handled
     ! elsewhere).
     !
-    ! !USES:
-    use FatesInterfaceTypesMod, only : hlm_freq_day
     !
     ! !ARGUMENTS    
     type(ed_site_type), intent(inout), target  :: currentSite
@@ -359,9 +355,9 @@ contains
        ! need to include all of their mortality here rather than part of it here
        ! and part in disturbance routine.
 
-       currentCohort%dndt= -(cmort+hmort+bmort+frmort+smort+asmort+dgmort) * currentCohort%n
+       currentCohort%dndt= -1.0_r8*(cmort+hmort+bmort+frmort+smort+asmort+dgmort) * currentCohort%n
        if ( .not. ExemptTreefallDist(currentCohort)) then
-          currentCohort%dndt = (1.0_r8-fates_mortality_disturbance_fraction) * currentCohort%dndt
+          currentCohort%dndt = (1.0_r8-EDPftvarcon_inst%mortality_disturbance_fraction(ipft)) * currentCohort%dndt
        endif
 
     endif
