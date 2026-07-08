@@ -429,6 +429,9 @@ variables:
 	double fates_mort_bmort(fates_pft) ;
 		fates_mort_bmort:units = "1/yr" ;
 		fates_mort_bmort:long_name = "background mortality rate" ;
+	double fates_mort_disturb_frac(fates_pft) ;
+		fates_mort_disturb_frac:units = "fraction" ;
+		fates_mort_disturb_frac:long_name = "fraction of canopy mortality that results in disturbance (i.e. transfer of area from new to old patch)" ;
 	double fates_mort_freezetol(fates_pft) ;
 		fates_mort_freezetol:units = "degrees C" ;
 		fates_mort_freezetol:long_name = "minimum temperature tolerance" ;
@@ -858,12 +861,9 @@ variables:
 	double fates_mort_cstarvation_model ;
 		fates_mort_cstarvation_model:units = "unitless" ;
 		fates_mort_cstarvation_model:long_name = "switch defining the carbon starvation model ( 1) Linear or 2) Exponential) in the mortality_rates function." ;
-	double fates_mort_disturb_frac ;
-		fates_mort_disturb_frac:units = "fraction" ;
-		fates_mort_disturb_frac:long_name = "fraction of canopy mortality that results in disturbance (i.e. transfer of area from new to old patch)" ;
-	double fates_mort_understorey_death ;
-		fates_mort_understorey_death:units = "fraction" ;
-		fates_mort_understorey_death:long_name = "fraction of plants in understorey cohort impacted by overstorey tree-fall" ;
+	double fates_mort_understory_death ;
+		fates_mort_understory_death:units = "fraction" ;
+		fates_mort_understory_death:long_name = "fraction of plants in understorey cohort impacted by overstory tree-fall" ;
 	double fates_patch_fusion_tol ;
 		fates_patch_fusion_tol:units = "unitless" ;
 		fates_patch_fusion_tol:long_name = "minimum fraction in difference in profiles between patches" ;
@@ -1417,6 +1417,8 @@ data:
  fates_mort_bmort = 0.014, 0.014, 0.014, 0.014, 0.014, 0.014, 0.014, 0.014, 
     0.014, 0.016, 0.01, 0.014, 0.014, 0.014 ;
 
+ fates_mort_disturb_frac = 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0 ;
+
  fates_mort_freezetol = 2.5, -55, -80, -30, 2.5, -80, -60, -10, -80, -71, 
     -95, -89, -20, 2.5 ;
 
@@ -1809,9 +1811,7 @@ data:
 
  fates_mort_cstarvation_model = 1 ;
 
- fates_mort_disturb_frac = 1 ;
-
- fates_mort_understorey_death = 0.55983 ;
+ fates_mort_understory_death = 0.55983 ;
 
  fates_patch_fusion_tol = 0.05 ;
 
