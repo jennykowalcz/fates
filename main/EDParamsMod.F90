@@ -60,7 +60,7 @@ module EDParamsMod
    real(r8),protected, public :: ED_val_vai_top_bin_width             ! width in VAI units of uppermost leaf+stem layer scattering element
    real(r8),protected, public :: ED_val_vai_width_increase_factor     ! factor by which each leaf+stem scattering element increases in VAI width
    real(r8),protected, public :: ED_val_nignitions                    ! number of annual ignitions per square km
-   real(r8),protected, public :: ED_val_understorey_death             ! fraction of plants in understorey cohort impacted by overstorey tree-fall
+   real(r8),protected, public :: ED_val_understory_death              ! fraction of plants in understory cohort impacted by overstory tree-fall
    real(r8),protected, public :: ED_val_cwd_fcel                      ! Cellulose fraction for CWD
    real(r8),protected, public :: ED_val_cwd_flig                      ! Lignin fraction of coarse woody debris
    real(r8),protected, public :: maintresp_nonleaf_baserate           ! Base maintenance respiration rate for plant tissues
@@ -152,7 +152,7 @@ module EDParamsMod
    character(len=param_string_length),parameter,public :: ED_name_vai_top_bin_width = "fates_vai_top_bin_width"
    character(len=param_string_length),parameter,public :: ED_name_vai_width_increase_factor = "fates_vai_width_increase_factor"
    character(len=param_string_length),parameter,public :: ED_name_nignitions = "fates_fire_nignitions"
-   character(len=param_string_length),parameter,public :: ED_name_understorey_death = "fates_mort_understorey_death"
+   character(len=param_string_length),parameter,public :: ED_name_understory_death = "fates_mort_understory_death"
    character(len=param_string_length),parameter,public :: ED_name_cwd_fcel= "fates_frag_cwd_fcel"   
    character(len=param_string_length),parameter,public :: ED_name_cwd_flig= "fates_frag_cwd_flig"   
    character(len=param_string_length),parameter,public :: fates_name_maintresp_nonleaf_baserate= "fates_maintresp_nonleaf_baserate"
@@ -326,7 +326,7 @@ contains
     ED_val_vai_top_bin_width              = nan
     ED_val_vai_width_increase_factor      = nan
     ED_val_nignitions                     = nan
-    ED_val_understorey_death              = nan
+    ED_val_understory_death               = nan
     ED_val_cwd_fcel                       = nan
     ED_val_cwd_flig                       = nan
     maintresp_nonleaf_baserate            = nan
@@ -446,7 +446,7 @@ contains
     call fates_params%RegisterParameter(name=ED_name_nignitions, dimension_shape=dimension_shape_scalar, &
          dimension_names=dim_names_scalar)
 
-    call fates_params%RegisterParameter(name=ED_name_understorey_death, dimension_shape=dimension_shape_scalar, &
+    call fates_params%RegisterParameter(name=ED_name_understory_death, dimension_shape=dimension_shape_scalar, &
          dimension_names=dim_names_scalar)
 
     call fates_params%RegisterParameter(name=ED_name_cwd_fcel, dimension_shape=dimension_shape_scalar, &
@@ -669,8 +669,8 @@ contains
     call fates_params%RetrieveParameter(name=ED_name_nignitions, &
          data=ED_val_nignitions)
 
-    call fates_params%RetrieveParameter(name=ED_name_understorey_death, &
-         data=ED_val_understorey_death)
+    call fates_params%RetrieveParameter(name=ED_name_understory_death, &
+         data=ED_val_understory_death)
 
     call fates_params%RetrieveParameter(name=ED_name_cwd_fcel, &
          data=ED_val_cwd_fcel)
@@ -883,7 +883,7 @@ contains
         write(fates_log(),fmt0) 'ED_val_vai_top_bin_width = ',ED_val_vai_top_bin_width
         write(fates_log(),fmt0) 'ED_val_vai_width_increase_factor = ',ED_val_vai_width_increase_factor
         write(fates_log(),fmt0) 'ED_val_nignitions = ',ED_val_nignitions
-        write(fates_log(),fmt0) 'ED_val_understorey_death = ',ED_val_understorey_death
+        write(fates_log(),fmt0) 'ED_val_understory_death = ',ED_val_understory_death
         write(fates_log(),fmt0) 'ED_val_cwd_fcel = ',ED_val_cwd_fcel
         write(fates_log(),fmt0) 'ED_val_cwd_flig = ',ED_val_cwd_flig
         write(fates_log(),fmt0) 'fates_maintresp_nonleaf_baserate = ', maintresp_nonleaf_baserate
