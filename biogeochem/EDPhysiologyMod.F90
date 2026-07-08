@@ -38,9 +38,8 @@ module EDPhysiologyMod
   use FatesConstantsMod, only    : nocomp_bareground_land
   use FatesConstantsMod, only    : is_crop
   use FatesConstantsMod, only    : area_error_2
-  use EDPftvarcon      , only    : EDPftvarcon_inst
+  use EDPftvarcon      , only    : EDPftvarcon_inst, GetDecompyFrac
   use PRTParametersMod , only    : prt_params
-  use EDPftvarcon      , only    : GetDecompyFrac
   use FatesInterfaceTypesMod, only    : bc_in_type
   use FatesInterfaceTypesMod, only    : bc_out_type
   use EDCohortDynamicsMod , only : create_cohort, sort_cohorts
@@ -94,7 +93,6 @@ module EDPhysiologyMod
   use shr_log_mod           , only : errMsg => shr_log_errMsg
   use FatesGlobals          , only : fates_log
   use FatesGlobals          , only : endrun => fates_endrun
-  use EDParamsMod           , only : fates_mortality_disturbance_fraction
   use EDParamsMod           , only : q10_mr
   use EDParamsMod           , only : q10_froz
   use EDParamsMod           , only : logging_export_frac
