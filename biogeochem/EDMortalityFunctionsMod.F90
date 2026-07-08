@@ -10,7 +10,7 @@ module EDMortalityFunctionsMod
    use EDPftvarcon           , only : EDPftvarcon_inst
    use FatesCohortMod        , only : fates_cohort_type
    use EDTypesMod            , only : ed_site_type
-   use EDParamsMod,            only : maxpft
+   use EDParamsMod           , only : maxpft
    use EDParamsMod           , only : mort_cstarvation_model
    use FatesConstantsMod     , only : itrue,ifalse
    use FatesConstantsMod     , only : cstarvation_model_lin
@@ -28,8 +28,8 @@ module EDMortalityFunctionsMod
    use FatesInterfaceTypesMod     , only : hlm_use_tree_damage
    use EDLoggingMortalityMod , only : LoggingMortality_frac
    use FatesConstantsMod     , only : n_landuse_cats
-   use PRTGenericMod,          only : carbon12_element
-   use PRTGenericMod,          only : store_organ
+   use PRTGenericMod         , only : carbon12_element
+   use PRTGenericMod         , only : store_organ
    use PRTParametersMod      , only : prt_params
    use shr_log_mod           , only : errMsg => shr_log_errMsg
    
