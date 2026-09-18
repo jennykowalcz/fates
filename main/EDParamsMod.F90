@@ -40,7 +40,6 @@ module EDParamsMod
    real(r8),protected, public :: sdlng2sap_par_timescale              ! Length of the window for the exponential 
                                                                       ! moving average of par at the seedling layer used to 
                                                                       ! calculate seedling to sapling transition rates
-   real(r8),protected, public :: mortality_disturbance_fraction       ! the fraction of canopy mortality that results in disturbance
    real(r8),protected, public :: comp_excln_exp                       ! weighting factor (exponent) for canopy layer exclusion and promotion
    real(r8),protected, public :: ED_val_nignitions                    ! number of annual ignitions per square km
    real(r8),protected, public :: ED_val_understorey_death             ! fraction of plants in understorey cohort impacted by overstorey tree-fall
@@ -223,7 +222,6 @@ module EDParamsMod
     sdlng_mdd_timescale                   = nan
     sdlng2sap_par_timescale               = nan
     photo_temp_acclim_thome_time          = nan
-    mortality_disturbance_fraction        = nan
     comp_excln_exp                        = nan
     ED_val_nignitions                     = nan
     ED_val_understorey_death              = nan
@@ -315,10 +313,7 @@ module EDParamsMod
     
     param_p => pstruct%GetParamFromName("fates_trs_seedling2sap_par_timescale")
     sdlng2sap_par_timescale = param_p%r_data_scalar
-   
-    param_p => pstruct%GetParamFromName("fates_mort_disturb_frac")
-    mortality_disturbance_fraction = param_p%r_data_scalar
-    
+       
     param_p => pstruct%GetParamFromName("fates_comp_excln")
     comp_excln_exp = param_p%r_data_scalar
     
@@ -510,7 +505,6 @@ module EDParamsMod
         write(fates_log(),fmt0) 'sdlng_mort_par_timescale = ', sdlng_mort_par_timescale
         write(fates_log(),fmt0) 'sdlng_mdd_timescale = ', sdlng_mdd_timescale
         write(fates_log(),fmt0) 'sdlng2sap_par_timescale = ', sdlng2sap_par_timescale
-        write(fates_log(),fmt0) 'mortality_disturbance_fraction = ',mortality_disturbance_fraction
         write(fates_log(),fmt0) 'comp_excln_exp = ',comp_excln_exp
         write(fates_log(),fmt0) 'ED_val_nignitions = ',ED_val_nignitions
         write(fates_log(),fmt0) 'ED_val_understorey_death = ',ED_val_understorey_death
