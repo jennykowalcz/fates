@@ -101,6 +101,7 @@ module EDPftvarcon
      real(r8), allocatable :: maintresp_leaf_vert_scaler_coeff2(:) ! leaf maintenance respiration decrease through the canopy param 2
                                                                    ! only with Atkin et al. 2017 respiraiton model 
      real(r8), allocatable :: bmort(:)
+     real(r8), allocatable :: mortality_disturbance_fraction(:) ! the fraction of canopy mortality that results in disturbance
      real(r8), allocatable :: mort_ip_size_senescence(:) ! inflection point of dbh dependent senescence
      real(r8), allocatable :: mort_r_size_senescence(:)  ! rate of change in mortality with dbh
      real(r8), allocatable :: mort_ip_age_senescence(:)  ! inflection point of age dependent senescence
@@ -480,6 +481,10 @@ contains
     param_p => pstruct%GetParamFromName('fates_mort_bmort')
     allocate(EDPftvarcon_inst%bmort(numpft))
     EDPftvarcon_inst%bmort(:) = param_p%r_data_1d(:)
+
+    param_p => pstruct%GetParamFromName('fates_mort_disturb_frac')
+    allocate(EDPftvarcon_inst%mortality_disturbance_fraction(numpft))
+    EDPftvarcon_inst%mortality_disturbance_fraction(:) = param_p%r_data_1d(:)
     
     param_p => pstruct%GetParamFromName('fates_mort_scalar_cstarvation')
     allocate(EDPftvarcon_inst%mort_scalar_cstarvation(numpft))
@@ -866,6 +871,7 @@ contains
         write(fates_log(),fmt0) 'smpso = ',EDPftvarcon_inst%smpso
         write(fates_log(),fmt0) 'smpsc = ',EDPftvarcon_inst%smpsc
         write(fates_log(),fmt0) 'bmort = ',EDPftvarcon_inst%bmort
+        write(fates_log(),fmt0) 'mortality_disturbance_fraction = ',EDPftvarcon_inst%mortality_disturbance_fraction
         write(fates_log(),fmt0) 'mort_ip_size_senescence = ', EDPftvarcon_inst%mort_ip_size_senescence
         write(fates_log(),fmt0) 'mort_r_size_senescence = ', EDPftvarcon_inst%mort_r_size_senescence
         write(fates_log(),fmt0) 'mort_ip_age_senescence = ', EDPftvarcon_inst%mort_ip_age_senescence
